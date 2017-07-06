@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type">
+    <title>Elliot's DM Resource Page</title>
+    <style>
+    body{
+    background:#2d2d2d;
+    color:white;
+    font-family:"Times New Roman",serif;
+    font-size:11px;
+    letter-spacing:.75px;}
+      
+      #container{
+        top:10%;
+          width: 100%;
+        height: 100%;
+        position:absolute;
+      }
+      
+* {
+    margin: 0;
+    padding: 0;
+}
+#hexGrid {
+  display: flex;
+  flex-wrap: wrap;
+  width: 90%;
+  margin: 0 auto;
+  overflow: hidden;
+  font-size: 15px;
+  list-style-type: none;
+}
+
+.hex {
+  position: relative;
+  visibility:hidden;
+  outline:1px solid transparent;  /* fix for jagged edges in FF on hover transition */
+}
+.hex::after{
+  content:'';
+  display:block;
+  padding-bottom: 86.602%;  /* =  100 / tan(60) * 1.5 */
+}
+.hexIn{
+  position: absolute;
+  width:96%;
+  padding-bottom: 110.851%; /* =  width / sin(60) */
+  margin:0 2%;
+  overflow: hidden;
+  visibility: hidden;
+  outline:1px solid transparent; /* fix for jagged edges in FF on hover transition */
+  -webkit-transform: rotate3d(0,0,1,-60deg) skewY(30deg);
+      -ms-transform: rotate3d(0,0,1,-60deg) skewY(30deg);
+          transform: rotate3d(0,0,1,-60deg) skewY(30deg);
+}
+.hexIn * {
+  position: absolute;
+  visibility: visible;
+        border: 1px solid transparent; /* fix for jagged edges in FF on hover transition */
+}
+.hexLink {
+    display:block;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    color: #fff;
+    overflow: hidden;
+
+    -webkit-transform: skewY(-30deg) rotate3d(0,0,1,60deg);
+        -ms-transform: skewY(-30deg) rotate3d(0,0,1,60deg);
+            transform: skewY(-30deg) rotate3d(0,0,1,60deg);
+}
+
+/*** HEX CONTENT **********************************************************************/
+.hex img {
+  left: -100%;
+  right: -100%;
+  width: auto;
+  height: 100%;
+  margin: 0 auto;
+
+  -webkit-transform: rotate3d(0,0,0,0deg);
+      -ms-transform: rotate3d(0,0,0,0deg);
+          transform: rotate3d(0,0,0,0deg);
+}
+
+.hex h1, .hex p {
+  width: 100%;
+  padding: 5%;
+  box-sizing:border-box;
+  background-color: #2090db;
+  font-weight: 300;
+
+  -webkit-transition:  -webkit-transform .2s ease-out, opacity .3s ease-out;
+          transition:          transform .2s ease-out, opacity .3s ease-out;
+}
+.hex h1 {
+  bottom: 50%;
+  padding-top:50%;
+  font-size: 1.5em;
+  z-index: 1;
+  -webkit-transform:translate3d(0,-100%,0);
+      -ms-transform:translate3d(0,-100%,0);
+          transform:translate3d(0,-100%,0);
+}
+.hex h1::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 45%;
+  width: 10%;
+  text-align: center;
+  border-bottom: 1px solid #fff;
+
+}
+.hex p {
+  top: 50%;
+  padding-bottom:50%;
+  -webkit-transform:translate3d(0,100%,0);
+      -ms-transform:translate3d(0,100%,0);
+          transform:translate3d(0,100%,0);
+}
+
+
+/*** HOVER EFFECT  **********************************************************************/
+.hexLink:hover h1, .hexLink:focus h1,
+.hexLink:hover p, .hexLink:focus p{
+  -webkit-transform:translate3d(0,0,0);
+      -ms-transform:translate3d(0,0,0);
+          transform:translate3d(0,0,0);
+}
+
+/*** HEXAGON SIZING AND EVEN ROW INDENTATION *****************************************************************/
+@media (min-width:1201px) { /* <- 5-4  hexagons per row */
+  #hexGrid{
+    padding-bottom: 4.4%
+  }
+  .hex {
+    width: 20%; /* = 100 / 5 */
+  }
+  .hex:nth-child(9n+6){ /* first hexagon of even rows */
+    margin-left:10%;  /* = width of .hex / 2  to indent even rows */
+  }
+}
+
+@media (max-width: 1200px) and (min-width:901px) { /* <- 4-3  hexagons per row */
+  #hexGrid{
+    padding-bottom: 5.5%
+  }
+  .hex {
+    width: 25%; /* = 100 / 4 */
+  }
+  .hex:nth-child(7n+5){ /* first hexagon of even rows */
+    margin-left:12.5%;  /* = width of .hex / 2  to indent even rows */
+  }
+}
+
+@media (max-width: 900px) and (min-width:601px) { /* <- 3-2  hexagons per row */
+  #hexGrid{
+    padding-bottom: 7.4%
+  }
+  .hex {
+    width: 33.333%; /* = 100 / 3 */
+  }
+  .hex:nth-child(5n+4){ /* first hexagon of even rows */
+    margin-left:16.666%;  /* = width of .hex / 2  to indent even rows */
+  }
+}
+
+@media (max-width: 600px) { /* <- 2-1  hexagons per row */
+  #hexGrid{
+    padding-bottom: 11.2%
+  }
+  .hex {
+    width: 50%; /* = 100 / 3 */
+  }
+  .hex:nth-child(3n+3){ /* first hexagon of even rows */
+    margin-left:25%;  /* = width of .hex / 2  to indent even rows */
+  }
+}
+
+@media (max-width: 400px) {
+    #hexGrid {
+        font-size: 13px;
+    }
+}
+      
+                  div.copy{
+        position:fixed;
+        bottom:10px;
+        right:10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <ul id="hexGrid">
+        <li class="hex">
+          <div class="hexIn"> <a class="hexLink" href="https://www.wizards.com/dnd/dice/dice.htm">
+              <img src="https://68.media.tumblr.com/37d5902fec77333d6c852feaf80f01e7/tumblr_o30madM16J1upuuero1_1280.jpg"
+                alt="">
+              <h1>Virtual Dice Roller</h1>
+              <p>Well, we all come unprepared to class some days.</p>
+            </a> </div>
+        </li>
+        <li class="hex">
+          <div class="hexIn"> <a class="hexLink" href="/dm-guide/market.html">
+              <img src="http://img12.deviantart.net/26d8/i/2013/326/8/d/the_foreign_market_by_shutupandwhisper-d6v59li.jpg"
+                alt="">
+              <h1>Marketplace Prices</h1>
+              <p>Here's what you can buy at the local market.</p>
+            </a> </div>
+        </li>
+        <li class="hex">
+          <div class="hexIn"> <a class="hexLink" href="/dm-guide/gods.html"> <img
+                src="http://d20crit.com/wp-content/uploads/2015/02/an-intro-to-warcraft.jpg"
+                alt="">
+              <h1>Gods</h1>
+              <p>God isn't dead... yet.</p>
+            </a> </div>
+        </li>
+        <li class="hex">
+          <div class="hexIn"> <a class="hexLink" href="/dm-guide/map.html"> <img
+                src="https://i.kinja-img.com/gawker-media/image/upload/s--nrBLe383--/c_scale,f_auto,fl_progressive,q_80,w_800/18ky3fa0y0eykjpg.jpg"
+                alt="">
+              <h1>Town Map</h1>
+              <p>A very convenient map that can be viewed anytime.</p>
+            </a> </div>
+        </li>
+        <li class="hex">
+          <div class="hexIn"> <a class="hexLink" href="/dm-guide/cities.html">
+              <img src="http://img09.deviantart.net/d1d5/i/2014/311/c/5/fantasy_city_by_britneypringle-d85kpn2.jpg"
+                alt="">
+              <h1>Settlements</h1>
+              <p>Common knowledge about the settlements depicted in the Map.</p>
+            </a> </div>
+        </li>
+        <li class="hex">
+          <div class="hexIn"> <a class="hexLink" href="/dm-guide/factions.html">
+              <img src="https://s-media-cache-ak0.pinimg.com/originals/c2/12/17/c21217fdd76c8e6d2c6a626247cf2d5a.jpg"
+                alt="">
+              <h1>Factions</h1>
+              <p>Three is either a crowd or an organized faction.</p>
+            </a> </div>
+        </li>
+        <li class="hex">
+          <div class="hexIn"> <a class="hexLink" href="/dm-guide/characters.html">
+              <img src="http://cdn.playbuzz.com/cdn/62cb751b-0594-40a5-86f1-63f0470b5ac7/f515d969-67b5-4023-8ca5-1080846e167d_560_420.jpg"
+                alt="">
+              <h1>Character Creation</h1>
+              <p>Everything you need to know. Probably.</p>
+            </a> </div>
+        </li>
+        <li class="hex">
+          <div class="hexIn"> <a class="hexLink" href="http://media.wizards.com/2014/downloads/dnd/5E_CHARACTERSHEETSV3.ZIP">
+              <img src="http://cdn.playbuzz.com/cdn/4e13ea68-807f-485c-9360-c4b5bc856d59/15699615-b833-4859-99f5-8f3e1a26ddba_560_420.jpg"
+                alt="">
+              <h1>Blank Character Sheets</h1>
+              <p>Just in case.</p>
+            </a> </div>
+        </li>
+      </ul>
+    </div>
+    <div class="copy"> © Elliot Gavin Keenan 2017 — present</div>
+  </body>
+</html>
